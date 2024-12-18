@@ -1,18 +1,19 @@
 const pairs = {
     "Armine": "Marina",
-    "Marina": "Tatev",
-    "Tatev": "Ilona",
-    "Ilona": "Kara",
-    "Kara": "Rima",
+    "Marina": "Kara",
+    "Tatev": "Rima",
+    "Ilona": "Tatev",
+    "Kara": "Ilona",
     "Rima": "Ani",
     "Ani": "Arevik",
     "Arevik": "Kristina",
     "Kristina": "Manana",
-    "Manana": "Sona",
-    "Sona": "Lilit SPA",
-    "Lilit SPA": "Lilit cosmetology",
+    "Manana": "Lilit cosmetology",
     "Lilit cosmetology": "Milen",
-    "Milen": "Armine"
+    "Milen": "Kristina cosmetology",
+    "Kristina cosmetology": "Lilit SPA",
+    "Lilit SPA": "Sona",
+    "Sona": "Armine",
 };
 
 // Function to get the Secret Santa for a name
