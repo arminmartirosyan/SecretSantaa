@@ -1,34 +1,35 @@
-const staffMembers = [
-    "Armine", "Marina", "Ilona", "Milen", "Rima", "Lilit SPA", "Lilit cosmetology",
-    "Tatev", "Sona", "Kara", "Kristina", "Kristina cosmetology", "Manana", "Arevik", "Ani"
-];
+const pairs = {
+    "Armine": "Marina",
+    "Marina": "Tatev",
+    "Tatev": "Ilona",
+    "Ilona": "Kara",
+    "Kara": "Rima",
+    "Rima": "Ani",
+    "Ani": "Arevik",
+    "Arevik": "Kristina",
+    "Lilit cosmetology": "Manana",
+    "Manana": "Sona",
+    "Sona": "Lilit SPA",
+    "Lilit SPA": "Milen",
+    "Kristina": "Lilit cosmetology",
+    "Milen": "Armine"
+};
 
-// Function to determine Secret Santa for a given name
-function findSecretSanta(userName) {
-    // Validate input
-    if (!staffMembers.includes(userName)) {
-        return "Please enter a valid name from the staff list.";
+function getSecretSanta(userName) {
+    if (pairs[userName]) {
+        return pairs[userName];
+    } else {
+        return "Your name is not in the list. Please try again!";
     }
-
-    // Find the index of the user's name
-    const userIndex = staffMembers.indexOf(userName);
-
-    // Assign the next person in the list as their Secret Santa (circular)
-    const santaIndex = (userIndex + 1) % staffMembers.length;
-
-    return staffMembers[santaIndex];
 }
 
 document.getElementById('generate-btn').addEventListener('click', function () {
     const userName = document.getElementById('name').value.trim();
-
-    // Find the Secret Santa
-    const result = findSecretSanta(userName);
-
-    // Display the result
+    const result = getSecretSanta(userName);
     const resultElement = document.getElementById('result');
     resultElement.style.display = 'block';
-    resultElement.textContent = result.startsWith("Please")
-        ? result
-        : `You are the Secret Santa for: ${result}`;
+    resultElement.textContent = 
+        result.startsWith("Your name")
+            ? result
+            : `You are the Secret Santa for: ${result}`;
 });
