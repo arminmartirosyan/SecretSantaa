@@ -3,36 +3,32 @@ const staffMembers = [
     "Tatev", "Sona", "Kara", "Kristina", "Kristina cosmetology", "Manana", "Arevik", "Ani"
 ];
 
-// Проверка наличия кнопки и действий
+// Function to determine Secret Santa for a given name
+function findSecretSanta(userName) {
+    // Validate input
+    if (!staffMembers.includes(userName)) {
+        return "Please enter a valid name from the staff list.";
+    }
+
+    // Find the index of the user's name
+    const userIndex = staffMembers.indexOf(userName);
+
+    // Assign the next person in the list as their Secret Santa (circular)
+    const santaIndex = (userIndex + 1) % staffMembers.length;
+
+    return staffMembers[santaIndex];
+}
+
 document.getElementById('generate-btn').addEventListener('click', function () {
     const userName = document.getElementById('name').value.trim();
 
-    // Проверка валидности имени
-    if (!userName || !staffMembers.includes(userName)) {
-        alert("Введите имя из списка!");
-        return;
-    }
+    // Find the Secret Santa
+    const result = findSecretSanta(userName);
 
-    // Получаем использованные имена
-    const usedNames = JSON.parse(localStorage.getItem('usedNames') || '[]');
-
-    // Исключаем уже использованные имена
-    const availableNames = staffMembers.filter(name => !usedNames.includes(name) && name !== userName);
-
-    if (availableNames.length === 0) {
-        alert("Все имена уже были использованы!");
-        return;
-    }
-
-    // Генерация случайного имени
-    const secretSanta = availableNames[Math.floor(Math.random() * availableNames.length)];
-
-    // Сохраняем имя в локальное хранилище
-    usedNames.push(secretSanta);
-    localStorage.setItem('usedNames', JSON.stringify(usedNames));
-
-    // Отображение результата
+    // Display the result
     const resultElement = document.getElementById('result');
     resultElement.style.display = 'block';
-    resultElement.textContent = `Ваш Тайный Санта: ${secretSanta}`;
+    resultElement.textContent = result.startsWith("Please")
+        ? result
+        : `You are the Secret Santa for: ${result}`;
 });
